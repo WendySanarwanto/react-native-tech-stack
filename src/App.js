@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {  View, Text, } from 'react-native';
+import {  View, } from 'react-native';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import { Header } from './components/common';
+import LibraryList from './components/LibraryList';
 import reducers from './reducers';
 
 export default class App extends Component {
@@ -12,7 +13,7 @@ export default class App extends Component {
       <Provider store={ createStore(reducers)} >
         <View>
           <Header title="Tech Stack"/>     
-          <Text> Tech Stack App ! </Text>
+          <LibraryList />
         </View>
       </Provider>
     );
