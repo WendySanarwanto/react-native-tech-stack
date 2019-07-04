@@ -3,7 +3,8 @@ import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { CardSection } from './common';
-import * as actions from '../actions';
+import { selectLibrary } from '../actions';
+// import * as actions from '../actions';
 
 class ListItem extends Component {
   render() {
@@ -32,4 +33,4 @@ const styles = {
   }
 };
 
-export default connect(null, actions)(ListItem);
+export default connect(null, { selectLibrary })(ListItem);
