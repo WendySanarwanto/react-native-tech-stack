@@ -8,12 +8,11 @@ import { selectLibrary } from '../actions';
 
 class ListItem extends Component {
   renderDescriptionPanel = (
-    selectedLibraryId,
-    id,
+    expanded,
     selectedLibraryDescription,
     descriptionStyle
   ) => {
-    if (selectedLibraryId !== id) {
+    if (!expanded) {
       return null;
     }
 
@@ -29,7 +28,7 @@ class ListItem extends Component {
   render() {
     const { id, title } = this.props.item;
     const { descriptionStyle, titleStyle, titleViewStyle } = styles;
-    const { selectedLibraryId, selectedLibraryDescription } = this.props;
+    const { expanded, selectedLibraryDescription } = this.props;
     console.log('[DEBUG] - <ListItem> this.props:\n', this.props);
 
     return (
@@ -42,8 +41,7 @@ class ListItem extends Component {
           </View>
         </TouchableWithoutFeedback>
         {this.renderDescriptionPanel(
-          selectedLibraryId,
-          id,
+          expanded,
           selectedLibraryDescription,
           descriptionStyle
         )}
@@ -58,7 +56,7 @@ const styles = {
     paddingLeft: 15,
     paddingTop: 5,
     paddingBottom: 5,
-    paddingRight: 5,
+    paddingRight: 5
   },
   titleStyle: {
     color: 'white',
@@ -71,9 +69,9 @@ const styles = {
   },
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
-    selectedLibraryId: state.selectedLibrary.id,
+    expanded: state.selectedLibrary.id === ownProps.item.id,
     selectedLibraryDescription: state.selectedLibrary.description,
   };
 }
