@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  LayoutAnimation,
+  Platform,
+  Text,
+  TouchableWithoutFeedback,
+  UIManager,
+  View,
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import { CardSection } from './common';
@@ -7,6 +14,17 @@ import { selectLibrary } from '../actions';
 // import * as actions from '../actions';
 
 class ListItem extends Component {
+  constructor(props) {
+    super(props);
+    if (Platform.OS === 'android'){
+      UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }
+
+  componentDidUpdate() {
+    LayoutAnimation.easeInEaseOut();
+  }
+
   renderDescriptionPanel = (
     expanded,
     selectedLibraryDescription,
@@ -17,11 +35,9 @@ class ListItem extends Component {
     }
 
     return (
-      <View>
-        <CardSection>
-          <Text style={descriptionStyle}>{selectedLibraryDescription}</Text>
-        </CardSection>
-      </View>
+      <CardSection>
+        <Text style={descriptionStyle}>{selectedLibraryDescription}</Text>
+      </CardSection>
     );
   };
 
@@ -53,10 +69,11 @@ class ListItem extends Component {
 const styles = {
   descriptionStyle: {
     fontSize: 16,
+    flex: 1,
     paddingLeft: 15,
     paddingTop: 5,
     paddingBottom: 5,
-    paddingRight: 5
+    paddingRight: 5,
   },
   titleStyle: {
     color: 'white',
