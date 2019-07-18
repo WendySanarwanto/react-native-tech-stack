@@ -7,30 +7,78 @@ import { selectLibrary } from '../actions';
 // import * as actions from '../actions';
 
 class ListItem extends Component {
+  renderDescriptionPanel = (
+    selectedLibraryId,
+    id,
+    selectedLibraryDescription,
+    descriptionStyle
+  ) => {
+    if (selectedLibraryId !== id) {
+      return null;
+    }
+
+    return (
+      <View>
+        <CardSection>
+          <Text style={descriptionStyle}>{selectedLibraryDescription}</Text>
+        </CardSection>
+      </View>
+    );
+  };
+
   render() {
     const { id, title } = this.props.item;
-    const { titleStyle } = styles;
+    const { descriptionStyle, titleStyle, titleViewStyle } = styles;
+    const { selectedLibraryId, selectedLibraryDescription } = this.props;
     console.log('[DEBUG] - <ListItem> this.props:\n', this.props);
 
     return (
-      <TouchableWithoutFeedback
-        onPress={() => this.props.selectLibrary(id)}
-      >
-        <View>
-          <CardSection>
-            <Text style={ titleStyle }>{ title }</Text>
-          </CardSection>
-        </View>
-      </TouchableWithoutFeedback>
+      <View>
+        <TouchableWithoutFeedback onPress={() => this.props.selectLibrary(id)}>
+          <View>
+            <CardSection style={titleViewStyle}>
+              <Text style={titleStyle}>{title}</Text>
+            </CardSection>
+          </View>
+        </TouchableWithoutFeedback>
+        {this.renderDescriptionPanel(
+          selectedLibraryId,
+          id,
+          selectedLibraryDescription,
+          descriptionStyle
+        )}
+      </View>
     );
   }
 }
 
 const styles = {
+  descriptionStyle: {
+    fontSize: 16,
+    paddingLeft: 15,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingRight: 5,
+  },
   titleStyle: {
+    color: 'white',
     fontSize: 18,
-    paddingLeft: 15
-  }
+    fontWeight: 'bold',
+    paddingLeft: 15,
+  },
+  titleViewStyle: {
+    backgroundColor: '#1a73e8',
+  },
 };
 
-export default connect(null, { selectLibrary })(ListItem);
+function mapStateToProps(state) {
+  return {
+    selectedLibraryId: state.selectedLibrary.id,
+    selectedLibraryDescription: state.selectedLibrary.description,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  { selectLibrary }
+)(ListItem);

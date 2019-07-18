@@ -12,15 +12,22 @@ const appStore = createStore(reducers, applyMiddleware(thunk));
 
 class App extends Component {
   render() {
+    const { mainViewStyle } = styles;
     return (
-      <Provider store={ appStore } >
-        <View style={{ flex:1 }}>
-          <Header title="Tech Stack"/>     
+      <Provider store={appStore}>
+        <View style={mainViewStyle}>
+          <Header title="Tech Stack" />
           <LibraryList />
         </View>
       </Provider>
     );
   }
 }
+
+const styles = {
+  mainViewStyle: {
+    flex: 1,
+  },
+};
 
 export default App;

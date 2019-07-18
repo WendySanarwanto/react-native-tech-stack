@@ -5,18 +5,18 @@ export const fetchLibrary = () => {
   const payload = libraryData;
   return {
     type: FETCH_LIBRARY,
-    payload
+    payload,
   };
-}
+};
 
 export const selectLibrary = libraryId => (dispatch, getState) => {
   const libraries = getState().libraries;
   if (Array.isArray(libraries)) {
     const payload = libraries.find(lib => lib.id === libraryId);
-    
-    dispatch ({
+
+    dispatch({
       type: SELECT_LIBRARY,
-      payload
+      payload,
     });
   }
 };
