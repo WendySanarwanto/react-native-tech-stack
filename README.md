@@ -30,13 +30,13 @@ A React Native mobile app sample which demonstrate redux integration on mobile a
 
 ## How to run the app on an Android Phone
 
-* Ensure that your Android Phone's developer mode is enabled & activatied.
+* Ensure that your Android Phone's developer mode is enabled & activated.
 
 * Connect your Phone with the development machine using USB Cable.
 
 * Run `adb devices -l` command, to confirm that the Phone is already connected and has device id. Make note the device id.
 
-* Run `react-native run-android` command to build, install and run the app on your connected android phone.
+* Run `react-native run-android --deviceId <phone id you noted in prior step>` command to build, install and run the app on your connected android phone.
 
 ## How to run the app on iOS Simulator
 
